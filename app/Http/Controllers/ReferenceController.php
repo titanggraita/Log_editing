@@ -44,34 +44,31 @@ class ReferenceController extends Controller
             $data = DB::table('transaction_bookingediting')
                     ->where('bookingediting_id', 'LIKE', "%{$query}%")
                     ->get();
-            $output = '<ul class="dropdown-menu" style="display:block; position:absolute;">';
-            foreach($data as $row){
-                $output .= '
-                <li><a class="dropdown-item" href="#">'.$row->bookingediting_id.'</a></li>
-                ';
-            }
-            $output .= '</ul>';
-            echo $output;
-        }
-    }
-    public function autofill_Line(Request $request){ //autofill booking editing detail line
-        if($request->get('query')){
-            $query2 = $request->get('query');
-            $data = DB::table('transaction_bookingeditingdetail')
-                    ->where('bookingeditingdetail_line', 'LIKE', "%{$query2}%")
-                    ->get();
             $output = '<ul class="dropdown-menu" style="display:block; position:absolute">';
             foreach($data as $row){
                 $output .= '
-                <li><a class="dropdown-item" href="#">'.$row->bookingeditingdetail_line.'</a></li>
+                <li><a class="dropdown-item" href="#">'.$row->bookingediting_id.'<a/></li>
                 ';
             }
             $output .= '</ul>';
             echo $output;
         }
     }
-    public function generate_CodeR(){
-
+    public function autofill_Line(){ //autofill booking editing detail line
+            $data = DB::table('transaction_bookingeditingdetail')
+                        ->select('bookingeditingdetail_line')
+                        ->orderBy('bookingediting_id')
+                        ->take(10)
+                        ->get();
+            $output = '<select style="display:block; position:absolute">';
+            foreach($data as $row){
+                $output .= '
+                <option>'.$row->bookingeditingdetail_line.'</option>
+                ';
+            }
+            $output .= '</select>';
+            echo $output;
     }
+    
 }
 

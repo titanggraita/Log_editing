@@ -35,7 +35,9 @@
                                     <br><br><br>
                                     <div class="col-md-12 col-form-label">
                                         <h4 style="color:#1b215a;">Your Code</h4>
-                                        <h3> HASIL CODE</h3>
+                                        <!-- <h3> HASIL CODE</h3> -->
+                                        <!-- <input type="text" class="form-control" name="your_code" value="" style="padding:50px;"/> -->
+                                        <textarea class="form-control" rows="4" id="your_codeNR"></textarea>
                                     </div>
                                 </div>
                             </div>

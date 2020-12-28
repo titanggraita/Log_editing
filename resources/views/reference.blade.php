@@ -15,7 +15,7 @@
                                         Booking Editing ID
                                     </div>
                                     <div class="col-md-10 col-form-label">
-                                        <input type="text" class="form-control" name="editing_id" id="editing_id" value="" placeholder="Selected Booking Editing ID" onclick="autofill_ID()"/>
+                                        <input type="text" class="form-control" autocomplete="off" name="editing_id" id="editing_id" value="" placeholder="Selected Booking Editing ID" onkeyup="autofill_ID()"/>
                                         <div id="bookingList">
                                         </div>
                                     </div>
@@ -24,27 +24,28 @@
                                         Booking Editing Line
                                     </div>
                                     <div class="col-md-10 col-form-label">
-                                        <input type="text" class="form-control" name="editing_line" id="editing_line" value="" placeholder="Selected Booking Editing Line" onclick="autofill_Line()"/>
-                                        <div id="bookingLine">
-                                        </div>
+                                        <input type="text" class="form-control" autocomplete="off" name="editing_line" id="editing_line" value="" placeholder="Selected Booking Editing Line" onkeyup="autofill_Line()"/>
+                                        <!-- <div id="bookingLine">
+                                        </div> -->
                                     </div>
+                                    <!-- {{ csrf_field() }} -->
                                     <div class="col-md-2 col-form-label">
                                         Kode Eps
                                     </div>
                                     <div class="col-md-10 col-form-label">
-                                        <input type="text" class="form-control" name="kode_eps" value="" placeholder="Input Episode Code"/>
+                                        <input type="text" class="form-control" id="kode_eps" name="kode_eps" value="" placeholder="Input Episode Code"/>
                                     </div>
                                     <div class="col-md-2 col-form-label">
                                         Editing Date
                                     </div>
                                     <div class="col-md-10 col-form-label">
-                                        <input type="text" class="date form-control" name="editing_date" value="" placeholder="Selected Date" onclick="datepickerdate()" />
+                                        <input type="text" class="date form-control" id="editing_date" name="editing_date" value="" placeholder="Selected Date" onclick="datepickerdate()" />
                                     </div>
                                     <div class="col-md-2 col-form-label">
                                         Editing Shift
                                     </div>
                                     <div class="col-md-10 col-form-label">
-                                        <input type="text" class="form-control" name="editing_shift" value="" placeholder="Input Editing Shift" />
+                                        <input type="text" class="form-control" id="editing_shift" name="editing_shift" value="" placeholder="Input Editing Shift" />
                                     </div><br><br><br>
                                     <div class="col-md-12">
                                         <button type="submit" class="btn btn-blue btn-lg btn-block">GENERATE CODE</button>
@@ -52,7 +53,7 @@
                                     <br><br><br>
                                     <div class="col-md-12 col-form-label">
                                         <h4 style="color:#1b215a;">Your Code</h4>
-                                        <input type="text" class="form-control" name="your_code" value="" style="padding:50px;"/>
+                                        <textarea class="form-control" rows="4" id="your_codeR"></textarea>
                                     </div>
                                     
                                 </div>
@@ -81,7 +82,6 @@
         </div>
 </form>
     <script type="text/javascript">
-    //timepicker??
     function datepickerdate(){
         $('.date').datepicker({  
             format: 'mm-dd-yyyy'
@@ -94,7 +94,7 @@
                 if(query != '')
                 {
                     var _token = $('input[name="_token"]').val();
-                    $.ajax({
+                    $.select2({
                         url:"{{ route('reference.autofill_ID') }}",
                         method:"POST",
                         data:{query:query, _token:_token},
@@ -105,6 +105,7 @@
                     });
                 }
             });
+
             $(document).on('click', 'li', function(){  
                 $('#editing_id').val($(this).text());  
                 $('#bookingList').fadeOut();  

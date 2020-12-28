@@ -24,6 +24,7 @@ Route::get('/reference', 'ReferenceController@lihat_R');
 Route::post('/reference/autofill_ID', 'ReferenceController@autofill_ID')->name('reference.autofill_ID');
 Route::post('/reference/autofill_Line', 'ReferenceController@autofill_Line')->name('reference.autofill_Line');
 
+
 //NON - REFERENCE
 Route::get('/non_reference', 'NonReferenceController@non_reference');
 Route::get('/non_reference/store_NR', 'NonReferenceController@store_NR');
