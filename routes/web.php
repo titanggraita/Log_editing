@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//LARAVEL
 Route::get('/', function () {
     return view('welcome');
 });
@@ -29,8 +30,8 @@ Route::post('/reference/autofill_Line', 'ReferenceController@autofill_Line')->na
 Route::get('/non_reference', 'NonReferenceController@non_reference');
 Route::get('/non_reference/store_NR', 'NonReferenceController@store_NR');
 Route::get('/non_reference', 'NonReferenceController@lihat_NR');
-// Route::get('/non_reference', 'NonReferenceController@generate_CodeNR');
 
+//LOGIN SSO
 Route::get('/loginSSO', 'LoginController@loginSSO');
 Route::get('/callback', 'LoginController@callback');
 Route::get('/logout', 'LoginController@logout');

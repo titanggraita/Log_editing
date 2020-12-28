@@ -37,8 +37,4 @@ class NonReferenceController extends Controller
         $non_reference = Transaction_logediting::all()->whereIn('logediting_isreferenced',0);
         return view('non_reference', ['non_reference' => $non_reference]);
     }
-    // public function generate_CodeNR(){
-    //     $generate = Transaction_logediting::all()->whereColumn('logediting_code');
-    //     return view('non_reference', ['generate' => $generate]);
-    // }
 }

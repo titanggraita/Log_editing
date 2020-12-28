@@ -15,7 +15,7 @@
                                         Booking Editing ID
                                     </div>
                                     <div class="col-md-10 col-form-label">
-                                        <input type="text" class="form-control" autocomplete="off" name="editing_id" id="editing_id" value="" placeholder="Selected Booking Editing ID" onkeyup="autofill_ID()"/>
+                                        <input type="text" class="form-control" autocomplete="off" name="editing_id" id="editing_id" value="" placeholder="Selected Booking Editing ID" onclick="autofill_ID()"/>
                                         <div id="bookingList">
                                         </div>
                                     </div>

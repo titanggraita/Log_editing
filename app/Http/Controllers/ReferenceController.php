@@ -57,6 +57,7 @@ class ReferenceController extends Controller
     public function autofill_Line(){ //autofill booking editing detail line
             $data = DB::table('transaction_bookingeditingdetail')
                         ->select('bookingeditingdetail_line')
+                        // ->orderBy('bookingeditingdetail_line', 'bookingediting_id')
                         ->orderBy('bookingediting_id')
                         ->take(10)
                         ->get();

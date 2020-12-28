@@ -35,9 +35,15 @@
                                     <br><br><br>
                                     <div class="col-md-12 col-form-label">
                                         <h4 style="color:#1b215a;">Your Code</h4>
-                                        <!-- <h3> HASIL CODE</h3> -->
-                                        <!-- <input type="text" class="form-control" name="your_code" value="" style="padding:50px;"/> -->
-                                        <textarea class="form-control" rows="4" id="your_codeNR"></textarea>
+                                        @foreach($non_reference as $n)
+                                        <div class="col-md-10 col-form-label"><h5 style="color: #1b215a;">
+                                            <?php 
+                                                echo ($n->logediting_code);
+                                            ?>
+                                        </h5>
+                                        </div>
+                                        @endforeach
+                                       
                                     </div>
                                 </div>
                             </div>
