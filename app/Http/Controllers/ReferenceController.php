@@ -18,26 +18,27 @@ class ReferenceController extends Controller
     public function store_R(Request $request)
     {
         // insert data ke table 
+        $time = str_pad(substr(microtime(true), 11,3), 3, STR_PAD_RIGHT);
         DB::table('transaction_logediting')->insert([
-            'logediting_code' => $request->your_code,
+            'logediting_code' => date('H').substr(date('Y'), -2).date('i').date('m').date('s').date('d').$time,
             'logediting_reference_id' => $request->editing_id,
             'logediting_reference_line' => $request->editing_line,
             'logediting_reference_code' => $request->kode_eps,
-            'logediting_useddate' => $request->editing_date,
+            'logediting_useddate' => $request->editing_date." ".date('H:i:s.').$time,
             'logediting_usedshift' => $request->editing_shift,
             'logediting_isreferenced' => 1,
             'logediting_generatedby' => 'SYSTEM REFERENCE',
-            'logediting_generateddate' => $request->editing_date,
-            // 'logediting_generatedtime' => //time
+            'logediting_generateddate' => date('Y-m-d H:i:s.').$time,
+            'logediting_generatedtime' => date('H:i:s.').$time
             //sisanya null
         ]);
         return redirect('/reference');
     }
-    public function lihat_R(){
+    public function lihat_R(){ //tabel
         $reference = Transaction_logediting::all()->whereIn('logediting_isreferenced',1);
         return view('reference', ['reference' => $reference]);
     }
-    public function autofill_ID(Request $request){
+    public function autofill_ID(Request $request){ //autofill booking editing ID
         if($request->get('query')){
             $query = $request->get('query');
             $data = DB::table('transaction_bookingediting')
@@ -53,11 +54,11 @@ class ReferenceController extends Controller
             echo $output;
         }
     }
-    public function autofill_Line(Request $request){
+    public function autofill_Line(Request $request){ //autofill booking editing detail line
         if($request->get('query')){
-            $query = $request->get('query');
+            $query2 = $request->get('query');
             $data = DB::table('transaction_bookingeditingdetail')
-                    ->where('bookingeditingdetail_line', 'LIKE', "%{$query}%")
+                    ->where('bookingeditingdetail_line', 'LIKE', "%{$query2}%")
                     ->get();
             $output = '<ul class="dropdown-menu" style="display:block; position:absolute">';
             foreach($data as $row){

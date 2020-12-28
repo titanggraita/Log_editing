@@ -21,7 +21,7 @@
                                         Editing Shift
                                     </div>
                                     <div class="col-md-10 col-form-label">
-                                        <input type="text" class="form-control" name="editing_shift" value="" placeholder="Input Editing Shift"/>
+                                        <input type="text" class="form-control" name="editing_shift" value="" placeholder="Input Editing Shift (1, 2, or 3)"/>
                                     </div>
                                     <div class="col-md-2 col-form-label">
                                         Editing Reason
@@ -35,7 +35,7 @@
                                     <br><br><br>
                                     <div class="col-md-12 col-form-label">
                                         <h4 style="color:#1b215a;">Your Code</h4>
-                                        <input type="text" class="form-control" name="" value="" style="padding:50px;"/>
+                                        <h3> HASIL CODE</h3>
                                     </div>
                                 </div>
                             </div>
@@ -65,10 +65,11 @@
     <script type="text/javascript">
     //timepicker??
     function datepickerdate(){
-        $('.date').datepicker({  
-            format: 'mm-dd-yyyy'
-        }); 
+            $('.date').datepicker({  
+                format: 'yyyy-mm-dd'
+        });   
     }
     </script>
+    
     
 </body>

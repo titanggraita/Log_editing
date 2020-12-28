@@ -17,20 +17,17 @@
                                     <div class="col-md-10 col-form-label">
                                         <input type="text" class="form-control" name="editing_id" id="editing_id" value="" placeholder="Selected Booking Editing ID" onclick="autofill_ID()"/>
                                         <div id="bookingList">
-                                            <!-- {{ csrf_field() }} -->
                                         </div>
                                     </div>
-                                    
+                                    {{ csrf_field() }}
                                     <div class="col-md-2 col-form-label">
                                         Booking Editing Line
                                     </div>
                                     <div class="col-md-10 col-form-label">
                                         <input type="text" class="form-control" name="editing_line" id="editing_line" value="" placeholder="Selected Booking Editing Line" onclick="autofill_Line()"/>
                                         <div id="bookingLine">
-                                            <!-- {{ csrf_field() }} -->
                                         </div>
                                     </div>
-                                    
                                     <div class="col-md-2 col-form-label">
                                         Kode Eps
                                     </div>

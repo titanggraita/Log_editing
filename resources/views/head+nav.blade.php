@@ -10,7 +10,7 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>  
     <script src="/kit.fontawesome/a227f1119f.js"></script>
-    <script src="/js/bootstrap-datetimepicker.min.js"></script>
+    <!-- <script src="/js/bootstrap-datetimepicker.min.js"></script> -->
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
@@ -18,7 +18,10 @@
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/js/bootstrap.min.js" rel="stylesheet">
     <link href="/log/css/log.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" media="screen" href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
     <!-- <link href="/tempusdominus-bootstrap-4\5.1.2\css\tempusdominus-bootstrap-4.min.css">  -->
+
+    <script src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js"></script>
 
 </head>
 <body>
