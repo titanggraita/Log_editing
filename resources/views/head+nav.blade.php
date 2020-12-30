@@ -6,15 +6,15 @@
 
     <script src="/jquery/jquery-3.4.1.min.js"></script>
     <script src="/js/custom.js"></script>
-    <!-- <script src="/select2/select2.js"></script>
-    <script src="/select2/select2.min.js"></script>
-    <script src="/select2/select2.full.js"></script>
-    <script src="/select2/select2.full.min.js"></script> -->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>  
     <script src="/kit.fontawesome/a227f1119f.js"></script>
-    <!-- <script src="/js/bootstrap-datetimepicker.min.js"></script> -->
+    <script src="/js/bootstrap-datetimepicker.min.js"></script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
@@ -22,11 +22,6 @@
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/js/bootstrap.min.js" rel="stylesheet">
     <link href="/log/css/log.css" rel="stylesheet">
-    <!-- <link href="/select2/css/select2.css" rel="stylesheet">
-    <link href="/select2/css/select2.min.css" rel="stylesheet"> -->
-    <!-- <link rel="stylesheet" type="text/css" media="screen" href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
-
-    <script src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js"></script> -->
 
 </head>
 <body>

@@ -15,20 +15,14 @@
                                         Booking Editing ID
                                     </div>
                                     <div class="col-md-10 col-form-label">
-                                        <input type="text" class="form-control" autocomplete="off" name="editing_id" id="editing_id" value="" placeholder="Selected Booking Editing ID" onclick="autofill_ID()"/>
-                                        <div id="bookingList">
-                                        </div>
+                                        <select class="cari form-control" style="width:790px;" name="cari" onclick="autofill_ID()"></select>
                                     </div>
-                                    {{ csrf_field() }}
                                     <div class="col-md-2 col-form-label">
                                         Booking Editing Line
                                     </div>
                                     <div class="col-md-10 col-form-label">
-                                        <input type="text" class="form-control" autocomplete="off" name="editing_line" id="editing_line" value="" placeholder="Selected Booking Editing Line" onkeyup="autofill_Line()"/>
-                                        <!-- <div id="bookingLine">
-                                        </div> -->
+                                        <select class="cari2 form-control" style="width:790px;" name="cari2" onclick="autofill_Line()"></select>
                                     </div>
-                                    <!-- {{ csrf_field() }} -->
                                     <div class="col-md-2 col-form-label">
                                         Kode Eps
                                     </div>
@@ -53,7 +47,11 @@
                                     <br><br><br>
                                     <div class="col-md-12 col-form-label">
                                         <h4 style="color:#1b215a;">Your Code</h4>
-                                        <textarea class="form-control" rows="4" id="your_codeR"></textarea>
+                                        <!-- <textarea class="form-control" rows="4" id="your_codeR"> -->
+                                        <h5 style="color: #1b215a;"><?php foreach($reference as $r)
+                                                echo "$r->logediting_code";
+                                        ?><h5>
+                                        <!-- </textarea> -->
                                     </div>
                                     
                                 </div>
@@ -88,56 +86,47 @@
         }); 
     }
     function autofill_ID(){
-        $(document).ready(function(){
-            $('#editing_id').keyup(function(){ 
-                var query = $(this).val();
-                if(query != '')
-                {
-                    var _token = $('input[name="_token"]').val();
-                    $.select2({
-                        url:"{{ route('reference.autofill_ID') }}",
-                        method:"POST",
-                        data:{query:query, _token:_token},
-                        success:function(data){
-                            $('#bookingList').fadeIn();  
-                                    $('#bookingList').html(data);
-                        }
-                    });
-                }
-            });
-
-            $(document).on('click', 'li', function(){  
-                $('#editing_id').val($(this).text());  
-                $('#bookingList').fadeOut();  
-            });  
-
+        $('.cari').select2({
+            placeholder: 'Selected Booking Editing ID',
+            ajax: {
+                url: '/autofill_ID',
+                dataType: 'json',
+                delay: 250,
+                processResults: function (data) {
+                    return {
+                        results:  $.map(data, function (item) {
+                            return {
+                                text: item.bookingediting_id,
+                            }
+                        })
+                    };
+                },
+                cache: true
+            }
         });
     }
     function autofill_Line(){
-        $(document).ready(function(){
-            $('#editing_line').keyup(function(){ 
-                var query = $(this).val();
-                if(query != '')
-                {
-                    var _token = $('input[name="_token"]').val();
-                    $.ajax({
-                        url:"{{ route('reference.autofill_Line') }}",
-                        method:"POST",
-                        data:{query:query, _token:_token},
-                        success:function(data){
-                            $('#bookingLine').fadeIn();  
-                                    $('#bookingLine').html(data);
-                        }
-                    });
-                }
-            });
-
-            $(document).on('click', 'li', function(){  
-                $('#editing_line').val($(this).text());  
-                $('#bookingLine').fadeOut();  
-            });  
+        $('.cari2').select2({
+            placeholder: 'Selected Booking Editing Line',
+            ajax: {
+                url: '/autofill_Line',
+                dataType: 'json',
+                delay: 250,
+                processResults: function (data) {
+                    return {
+                        results:  $.map(data, function (item) {
+                            return {
+                                text: item.bookingeditingdetail_line,
+                                id: item.bookingediting_id
+                            }
+                        })
+                    };
+                },
+                cache: true
+            }
         });
     }
+    
     </script> 
 
 </body>
