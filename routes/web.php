@@ -22,8 +22,9 @@ Route::get('/', function () {
 Route::get('/reference', 'ReferenceController@reference');
 Route::get('/reference/store_R', 'ReferenceController@store_R');
 Route::get('/reference', 'ReferenceController@lihat_R');
-Route::get('/autofill_ID', 'ReferenceController@autofill_ID');
-Route::get('/autofill_Line', 'ReferenceController@autofill_Line');
+Route::post('/reference/autofill_ID', 'ReferenceController@autofill_ID')->name('reference.autofill_ID');
+Route::post('/reference/autofill_Line', 'ReferenceController@autofill_Line')->name('reference.autofill_Line');
+
 
 
 

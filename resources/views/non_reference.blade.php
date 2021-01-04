@@ -12,6 +12,28 @@
                             <h2 class="card-title" style="color:#1b215a;">Non Reference</h2>
                                 <div class = "row m-1">
                                     <div class="col-md-2 col-form-label">
+                                        Booking Editing ID
+                                    </div>
+                                    <div class="col-md-10 col-form-label">
+                                        <input type="text" name="booking_id" id="booking_id" placeholder="Booking Editing ID" class="form-control" onkeyup="autofill_ID()" require/>
+                                        <div id="bookingList"></div>
+                                        <p>*Tidak wajib diisi</p>
+                                    </div>
+                                    {{ csrf_field() }}
+                                    <div class="col-md-2 col-form-label">
+                                        Booking Editing Line
+                                    </div>
+                                    <div class="col-md-10 col-form-label">
+                                        <input type="text" name="booking_line" id="booking_line" placeholder="Booking Editing Line" class="form-control" onkeyup="isi_otomatis()"/>
+                                        <p>*Tidak wajib diisi</p>
+                                    </div>
+                                    <div class="col-md-2 col-form-label">
+                                        Kode Eps
+                                    </div>
+                                    <div class="col-md-10 col-form-label">
+                                        <input type="text" class="form-control" id="kode_eps" name="kode_eps" value="" placeholder="Episode Code" disabled/>
+                                    </div>
+                                    <div class="col-md-2 col-form-label">
                                         Editing Date
                                     </div>
                                     <div class="col-md-10 col-form-label">
@@ -35,14 +57,9 @@
                                     <br><br><br>
                                     <div class="col-md-12 col-form-label">
                                         <h4 style="color:#1b215a;">Your Code</h4>
-                                        @foreach($non_reference as $n)
-                                        <div class="col-md-10 col-form-label"><h5 style="color: #1b215a;">
-                                            <?php 
-                                                echo ($n->logediting_code);
-                                            ?>
-                                        </h5>
+                                        <div class="card shadow-sm mb-2" style="padding:60px;">
+                                            <!-- <center><H2 style="color:#1b215a;">162020123428183</H2></center> -->
                                         </div>
-                                        @endforeach
                                        
                                     </div>
                                 </div>
@@ -75,7 +92,29 @@
     function datepickerdate(){
             $('.date').datepicker({  
                 format: 'yyyy-mm-dd'
-        });   
+            });   
+    }
+    function autofill_ID(){
+        $('#booking_id').keyup(function(){ 
+                var query = $(this).val();
+                if(query != '')
+                {
+                    var _token = $('input[name="_token"]').val();
+                    $.ajax({
+                        url:"{{ route('reference.autofill_ID') }}",
+                        method:"POST",
+                        data:{query:query, _token:_token},
+                        success:function(data){
+                            $('#bookingList').fadeIn("fast");  
+                                    $('#bookingList').html(data, "fast");
+                        }
+                    });
+                }
+        });
+            $(document).on('click', 'li', function(){  
+                $('#booking_id').val($(this).text());  
+                $('#bookingList').fadeOut("slow",function(){ $(this).remove() } );
+            });  
     }
     </script>
     

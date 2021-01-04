@@ -38,19 +38,29 @@ class ReferenceController extends Controller
         $reference = Transaction_logediting::all()->whereIn('logediting_isreferenced',1);
         return view('reference', ['reference' => $reference]);
     }
-    public function autofill_ID(Request $request){ //autofill booking editing ID
-        $data = Transaction_bookingediting::select("bookingediting_id")
-                ->where("bookingediting_id","LIKE","%{$request->input('query')}%")
-                ->get();
-        return response()->json($data);
+    public function autofill_ID(Request $request)
+    {
+        if($request->get('query'))
+        {
+            $query = $request->get('query');
+            $data = DB::table('transaction_bookingediting')
+                        ->where('bookingediting_id', 'LIKE', "%{$query}%")
+                        ->get();
+            $output = '<ul class="dropdown-menu" style="display:block; position:absolute">';
+            foreach($data as $row)
+            {
+                $output .= '
+                <li><a class="dropdown-item" href="#">'.$row->bookingediting_id.'</a></li>
+                ';
+            }
+            $output .= '</ul>';
+            echo $output;
+        }
     }
 
-    public function autofill_Line(Request $request){ //autofill booking editing Line
-        $data = Transaction_bookingeditingdetail::select("bookingeditingdetail_line")
-                ->where("bookingeditingdetail_line", "LIKE", "%{$request->input('query')}%")
-                // ->orderBy("bookingediting_id")
-                ->get();
-        return response()->json($data);
+    public function autofill_Line(Request $request)
+    {
+        
     }
     
 }
