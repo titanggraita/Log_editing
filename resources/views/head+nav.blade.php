@@ -31,16 +31,21 @@
         <div class="ks-logo-shadow navbar-brand">
             <img src="/img/logo_trans7.png">
         </div>
-        <div class="navbar-brand md-auto" ><h4>Log Editing</h4></div>
+        <div class="navbar-brand md-auto"><h4><a class="nav-link" href="/reference" style="color:white;">Log Editing</a></h4></div>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto" style="margin-left:150px;">
                 <li class="nav-item">
-                    <h5><a class="nav-link" href="/reference">Reference</a></h5>
+                    <h5><a class="nav-link" href="/reference" style="margin-left:50px;">Reference</a></h5>
                 </li>
                 <li class="nav-item">
-                    <h5><a class="nav-link" href="/non_reference">Non Reference</a></h5>
+                    <h5><a class="nav-link" href="/non_reference" style="margin-left:50px;">Non Reference</a></h5>
                 </li>
             </ul>
         </div>
     </div>
+    <ul class="navbar-nav mr-auto" style="margin-left:300px;">
+                <li class="nav-item">
+                    <h5><a class="nav-link" href="#">Logout</a></h5>
+                </li>
+    </ul>
 </nav>

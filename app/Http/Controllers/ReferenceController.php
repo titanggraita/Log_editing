@@ -21,10 +21,10 @@ class ReferenceController extends Controller
         $time = str_pad(substr(microtime(true), 11,3), 3, STR_PAD_RIGHT);
         DB::table('transaction_logediting')->insert([
             'logediting_code' => date('H').substr(date('Y'), -2).date('i').date('m').date('s').date('d').$time,
-            'logediting_reference_id' => $request->editing_id,
-            'logediting_reference_line' => $request->editing_line,
+            'logediting_reference_id' => $request->booking_id,
+            'logediting_reference_line' => $request->booking_line,
             'logediting_reference_code' => $request->kode_eps,
-            'logediting_useddate' => $request->editing_date." ".date('H:i:s.').$time,
+            'logediting_useddate' => $request->editing_date,
             'logediting_usedshift' => $request->editing_shift,
             'logediting_isreferenced' => 1,
             'logediting_generatedby' => 'SYSTEM REFERENCE',
@@ -43,10 +43,10 @@ class ReferenceController extends Controller
         if($request->get('query'))
         {
             $query = $request->get('query');
-            $data = DB::table('transaction_bookingediting')
+            $data = DB::table('transaction_bookingediting')->select('bookingediting_id')
                         ->where('bookingediting_id', 'LIKE', "%{$query}%")
                         ->get();
-            $output = '<ul class="dropdown-menu" style="display:block; position:absolute">';
+            $output = '<ul class="dropdown-menu" style="display:block; position:absolute;">';
             foreach($data as $row)
             {
                 $output .= '
@@ -54,7 +54,7 @@ class ReferenceController extends Controller
                 ';
             }
             $output .= '</ul>';
-            echo $output;
+            echo($output);
         }
     }
 
