@@ -3,6 +3,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
 
     <script src="https://cdn.jsdelivr.net/gh/vigneshksaithal/bootstrap-autocomplete@1.2/src/index.min.js"></script>
 
@@ -45,7 +46,7 @@
     </div>
     <ul class="navbar-nav mr-auto" style="margin-left:300px;">
                 <li class="nav-item">
-                    <h5><a class="nav-link" href="#">Logout</a></h5>
+                    <h5><a class="nav-link" href="/logout">Logout</a></h5>
                 </li>
     </ul>
 </nav>

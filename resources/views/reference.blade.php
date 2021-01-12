@@ -15,21 +15,26 @@
                                         Booking Editing ID
                                     </div>
                                     <div class="col-md-10 col-form-label">
-                                        <input type="text" name="booking_id" id="booking_id" placeholder="Booking Editing ID" class="form-control" onkeyup="autofill_ID()" required>
-                                        <div id="bookingList">
-                                        </div>
-                                        <p style="color:grey;">*Ketik Booking Editing ID</p>
+                                            <select name="bookingediting_id" id="bookingediting_id" class="form-control dynamic" data-dependent="bookingeditingdetail_line" required>
+                                                <option value="" selected="false">--Select Booking Editing ID--</option>
+                                                @foreach ($reference_B as $b)
+                                                <option value="{{$b->bookingediting_id}}">{{$b->bookingediting_id}}</option>
+                                                @endforeach
+                                            </select>
+                                            <p style="color:grey;">*Ketik Booking Editing ID</p>
                                     </div>
-                                    {{ csrf_field() }}
+                                    
                                     <div class="col-md-2 col-form-label">
                                         Booking Editing Line
                                     </div>
                                     <div class="col-md-10 col-form-label">
-                                        <select name="booking_line" id="booking_line" class="form-control" required>
-                                            <option value="">Booking Editing Line</option>
-                                        </select>
-                                        <p style="color:grey;">*Pilih Booking Editing Line</p>
+                                            <select name="bookingeditingdetail_line" id="bookingeditingdetail_line" class="form-control dynamic" required>
+                                                <option value="" selected="false">--Select Booking Editing Line--</option>
+                                            </select>
+                                            <p style="color:grey;">*Pilih Booking Editing Line</p>
                                     </div>
+                                    {{ csrf_field() }}
+                                    
                                     <div class="col-md-2 col-form-label">
                                         Kode Eps
                                     </div>
@@ -49,13 +54,19 @@
                                         <input type="text" class="form-control" id="editing_shift" name="editing_shift" value="" placeholder="Editing Shift" readonly/>
                                     </div><br><br><br>
                                     <div class="col-md-12">
-                                        <button type="submit" class="btn btn-blue btn-lg btn-block">GENERATE CODE</button>
+                                        <button type="submit" id="btnSubmit" class="btn btn-blue btn-lg btn-block">GENERATE CODE</button>
                                     </div>
                                     <br><br><br>
                                     <div class="col-md-12 col-form-label">
                                         <h4 style="color:#1b215a;">Your Code</h4>
                                         <div class="card shadow-sm mb-2" style="padding:60px;">
-                                            <!-- <center><H2 style="color:#1b215a;">122135012505640</H2></center> -->
+                                            <center><H2 style="color:#1b215a;">
+                                            <?php 
+                                                if (isset($_POST["btnSubmit"])){
+                                                    echo ($reference->logediting_code);
+                                                }
+                                            ?>
+                                            </H2></center>
                                         </div>
                                         
                                     </div>
@@ -81,7 +92,7 @@
                                 <th>Login Detail Status</th>
                             </thead>
                             
-                            @foreach($reference as $r)
+                            @foreach($reference_R as $r)
                             <tbody class="table-body text-center">
                                     <td>{{ $r->logediting_code }}</td>
                                     <td>{{ $r->logediting_reference_id }}</td>
@@ -94,10 +105,7 @@
                                     <td>
                                         <button type="button" id="myBtn" class="btn btn-blue btn-sm" onclick="popup()">View Detail
                                         </button>
-                                        <!-- The Modal -->
                                         <div id="myModal" class="modal">
-
-                                        <!-- Modal content -->
                                             <div class="modal-content">
                                                 <h3 class="modal-header" style="color:#1b215a;">Detail Login Status <span class="close">&times;</span></h3>
                                                 <div class="row m-1">
@@ -218,6 +226,29 @@
         </div>
 </form>
     <script type="text/javascript">
+        $(document).ready(function(){
+            $('.dynamic').on('change', function(){
+                if($(this).val() != ''){
+                    var select = $(this).attr("id");
+                    var value = $(this).val();
+                    var dependent = $(this).data('dependent');
+                    var _token = $('input[name="_token"]').val();
+                    $.ajax({
+                        url:"{{ route('reference.fetch') }}",
+                        method:"POST",
+                        data:{select:select, value:value, _token:_token, dependent:dependent},
+                        success:function(result){
+                            $('#'+dependent).html(result);
+                        }
+                    });
+                }
+            });
+            $('#bookingediting_id').on('change', function(){
+                $('#bookingeditingdetail_line').val('');
+            });
+        });
+    </script>
+    <script type="text/javascript">
     function popup(){
         // Get the modal
         var modal = document.getElementById("myModal");
@@ -244,28 +275,6 @@
                 modal.style.display = "none";
             }
         }
-    }
-    function autofill_ID(){
-        $('#booking_id').keyup(function(){ 
-                var query = $(this).val();
-                if(query != '')
-                {
-                    var _token = $('input[name="_token"]').val();
-                    $.ajax({
-                        url:"{{ route('reference.autofill_ID') }}",
-                        method:"POST",
-                        data:{query:query, _token:_token},
-                        success:function(data){
-                            $('#bookingList').fadeIn("fast");  
-                                    $('#bookingList').html(data);
-                        }
-                    });
-                }
-        });
-            $(document).on('click', 'li', function(){  
-                $('#booking_id').val($(this).text());  
-                $('#bookingList').fadeOut("slow",function(){ $(this).remove() } );
-            });  
     }
     </script> 
 

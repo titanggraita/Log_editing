@@ -12,7 +12,9 @@ use App\Transaction_logeditingpriviledge;
 class NonReferenceController extends Controller
 {
     public function non_reference(){
-    	return view('non_reference');
+        $non_reference_N = Transaction_logediting::all()->whereIn('logediting_isreferenced',0);
+        $non_reference_B = Transaction_bookingeditingdetail::select('bookingediting_id')->groupBy('bookingediting_id')->get();
+        return view('non_reference', compact('non_reference_N', 'non_reference_B'));
     }
 
     public function store_NR(Request $request)
@@ -32,9 +34,5 @@ class NonReferenceController extends Controller
             //sisanya null
         ]);
         return redirect('/non_reference');
-    }
-    public function lihat_NR(){
-        $non_reference = Transaction_logediting::all()->whereIn('logediting_isreferenced',0);
-        return view('non_reference', ['non_reference' => $non_reference]);
     }
 }

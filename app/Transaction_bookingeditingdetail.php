@@ -8,5 +8,5 @@ class Transaction_bookingeditingdetail extends Model
 {
     protected $connection = 'sqlsrv';
     public $incrementing = true;
-    protected $table = 'transaction_bookingeditingdetail'; 
+    protected $table = 'transaction_bookingeditingdetail';
 }

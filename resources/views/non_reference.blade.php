@@ -33,18 +33,21 @@
                                         Booking Editing ID
                                     </div>
                                     <div class="col-md-10 col-form-label">
-                                        <input type="text" name="booking_id" id="booking_id" placeholder="Booking Editing ID" class="form-control" onkeyup="autofill_ID()"/>
+                                        <select name="bookingediting_id" id="bookingediting_id" class="form-control dynamic" data-dependent="bookingeditingdetail_line">
+                                            <option value="" selected="false">--Select Booking Editing ID--</option>
+                                            @foreach ($non_reference_B as $a)
+                                                <option value="{{$a->bookingediting_id}}">{{$a->bookingediting_id}}</option>
+                                                @endforeach
+                                        </select>
                                         <p style="color:grey;">*Ketik Booking Editing ID (JIKA ADA - TIDAK WAJIB DIISI)
-                                        <div id="bookingList">
-                                        </div>
                                     </div>
-                                    {{ csrf_field() }}
+                                    
                                     <div class="col-md-2 col-form-label">
                                         Booking Editing Line
                                     </div>
                                     <div class="col-md-10 col-form-label">
                                         <select name="booking_line" id="booking_line" class="form-control">
-                                            <option value="">Booking Editing Line</option>
+                                            <option value="" selected="false">--Select Booking Editing Line--</option>
                                         </select>
                                         <p style="color:grey;">*Pilih Booking Editing Line (JIKA ADA - TIDAK WAJIB DIISI)</p>
                                     </div>
@@ -56,13 +59,19 @@
                                     </div>
                                     <br><br><br>
                                     <div class="col-md-12">
-                                        <button type="submit" class="btn btn-blue btn-lg btn-block">GENERATE CODE</button>
+                                        <button type="submit" id="btnSubmit" class="btn btn-blue btn-lg btn-block">GENERATE CODE</button>
                                     </div>
                                     <br><br><br>
                                     <div class="col-md-12 col-form-label">
                                         <h4 style="color:#1b215a;">Your Code</h4>
                                         <div class="card shadow-sm mb-2" style="padding:60px;">
-                                            <!-- <center><H2 style="color:#1b215a;">162020123428183</H2></center> -->
+                                            <center><H2 style="color:#1b215a;">
+                                            <?php 
+                                                if (isset($_POST["btnSubmit"])){
+                                                    echo ($reference->logediting_code);
+                                                }
+                                            ?>
+                                            </H2></center>
                                         </div>
                                        
                                     </div>
@@ -87,7 +96,7 @@
                                 <th>Login Detail Status</th>
                             </thead>
                            
-                            @foreach($non_reference as $n)
+                            @foreach($non_reference_N as $n)
                             <tbody class="table-body text-center">
                                     <td>{{ $n->logediting_code }}</td>
                                     <td>{{ $n->logediting_reference_id }}</td>
@@ -251,28 +260,6 @@
                 modal.style.display = "none";
             }
         }
-    }
-    function autofill_ID(){
-        $('#booking_id').keyup(function(){ 
-                var query = $(this).val();
-                if(query != '')
-                {
-                    var _token = $('input[name="_token"]').val();
-                    $.ajax({
-                        url:"{{ route('reference.autofill_ID') }}",
-                        method:"POST",
-                        data:{query:query, _token:_token},
-                        success:function(data){
-                            $('#bookingList').fadeIn("fast");  
-                                    $('#bookingList').html(data);
-                        }
-                    });
-                }
-        });
-        $(document).on('click', 'li', function(){  
-            $('#booking_id').val($(this).text());  
-            $('#bookingList').fadeOut("slow",function(){ $(this).remove() } );
-        });  
     }
     </script>
     

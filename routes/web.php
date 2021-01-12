@@ -19,18 +19,13 @@ Route::get('/', function () {
 });
 
 //REFERENCE
-Route::get('reference',array('as'=>'reference.reference', 'uses'=>'ReferenceController@reference'));
+Route::get('/reference', 'ReferenceController@reference');
 Route::get('/reference/store_R', 'ReferenceController@store_R');
-Route::get('/reference', 'ReferenceController@lihat_R');
-Route::post('/reference/autofill_ID', 'ReferenceController@autofill_ID')->name('reference.autofill_ID');
-// Route::post('/reference/autofill_Line', 'ReferenceController@autofill_Line')->name('reference.autofill_Line');
-
-
+Route::post('/reference/fetch', 'ReferenceController@fetch')->name('reference.fetch');
 
 //NON - REFERENCE
 Route::get('/non_reference', 'NonReferenceController@non_reference');
 Route::get('/non_reference/store_NR', 'NonReferenceController@store_NR');
-Route::get('/non_reference', 'NonReferenceController@lihat_NR');
 
 //LOGIN SSO
 Route::get('/loginSSO', 'LoginController@loginSSO');
