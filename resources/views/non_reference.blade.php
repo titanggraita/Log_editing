@@ -15,19 +15,19 @@
                                         Editing Date
                                     </div>
                                     <div class="col-md-10 col-form-label">
-                                        <input type="date" class="form-control" name="editing_date" value="" placeholder="Selected Date" required>
+                                        <input type="date" class="form-control dynamic" name="editing_date" value="" placeholder="Selected Date" required>
                                     </div>
                                     <div class="col-md-2 col-form-label">
                                         Editing Shift
                                     </div>
                                     <div class="col-md-10 col-form-label">
-                                        <input type="text" class="form-control" name="editing_shift" value="" placeholder="Input Editing Shift (1, 2, or 3)" required>
+                                        <input type="text" class="form-control dynamic" name="editing_shift" value="" placeholder="Input Editing Shift (1, 2, or 3)" required>
                                     </div>
                                     <div class="col-md-2 col-form-label">
                                         Editing Reason
                                     </div>
                                     <div class="col-md-10 col-form-label">
-                                        <input type="text" class="form-control" name="editing_reason" value="" placeholder="Input Editing Reason" required>
+                                        <input type="text" class="form-control dynamic" name="editing_reason" value="" placeholder="Input Editing Reason" required>
                                     </div>
                                     <div class="col-md-2 col-form-label">
                                         Booking Editing ID
@@ -35,8 +35,8 @@
                                     <div class="col-md-10 col-form-label">
                                         <select name="bookingediting_id" id="bookingediting_id" class="form-control dynamic" data-dependent="bookingeditingdetail_line">
                                             <option value="" selected="false">--Select Booking Editing ID--</option>
-                                            @foreach ($non_reference_B as $a)
-                                                <option value="{{$a->bookingediting_id}}">{{$a->bookingediting_id}}</option>
+                                            @foreach ($non_reference_R as $booking)
+                                                <option value="{{$booking->bookingediting_id}}">{{$booking->bookingediting_id}}</option>
                                                 @endforeach
                                         </select>
                                         <p style="color:grey;">*Ketik Booking Editing ID (JIKA ADA - TIDAK WAJIB DIISI)
@@ -46,16 +46,17 @@
                                         Booking Editing Line
                                     </div>
                                     <div class="col-md-10 col-form-label">
-                                        <select name="booking_line" id="booking_line" class="form-control">
+                                        <select name="bookingeditingdetail_line" id="bookingeditingdetail_line" class="form-control dynamic" onchange="autofill_NR()">
                                             <option value="" selected="false">--Select Booking Editing Line--</option>
                                         </select>
                                         <p style="color:grey;">*Pilih Booking Editing Line (JIKA ADA - TIDAK WAJIB DIISI)</p>
                                     </div>
+                                    {{ csrf_field() }}
                                     <div class="col-md-2 col-form-label">
                                         Kode Eps
                                     </div>
                                     <div class="col-md-10 col-form-label">
-                                        <input type="text" class="form-control" id="kode_eps" name="kode_eps" value="" placeholder="Episode Code" readonly/>
+                                        <input type="text" class="form-control dynamic" id="kode_eps" name="kode_eps" value="" placeholder="Episode Code" readonly/>
                                     </div>
                                     <br><br><br>
                                     <div class="col-md-12">
@@ -234,6 +235,48 @@
         </div>
 </form>
     <script type="text/javascript">
+        $(document).ready(function(){
+            $('.dynamic').on('change', function(){
+                if($(this).val() != ''){
+                    var select = $(this).attr("id");
+                    var value = $(this).val();
+                    var dependent = $(this).data('dependent');
+                    var _token = $('input[name="_token"]').val();
+                    console.log(select, value, dependent);
+                    $.ajax({
+                        url:"{{ route('non_reference.fetch_NR') }}",
+                        method:"POST",
+                        data:{select:select, value:value, _token:_token, dependent:dependent},
+                        success:function(result){
+                            $('#'+dependent).html(result);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+    <script type="text/javascript">
+    function autofill_NR(){
+        $('.dynamic').on('change', function(){
+                if($(this).val() != ''){
+                    var booking_line = $('#bookingeditingdetail_line').val();
+                    var booking_id = $('#bookingediting_id').val();
+                    var _token = $('input[name="_token"]').val();
+                    console.log(booking_id, booking_line);
+                    $.ajax({
+                        url:"{{ route('non_reference.autofill_NR') }}",
+                        method:"POST",
+                        data:{_token:_token, booking_id:booking_id, booking_line:booking_line },
+                        success:function(result){
+                            result = JSON.parse(result);
+                            console.log(result);
+                            $("#kode_eps").val(result[0].eps_code);
+
+                        }
+                    });
+                }
+            });
+    }
     function popup_N(){
         // Get the modal
         var modal = document.getElementById("myModal");

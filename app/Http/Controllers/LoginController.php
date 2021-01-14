@@ -31,7 +31,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/dashboard';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -70,6 +70,7 @@ class LoginController extends Controller
 
     public function logout(Request $request, SSOClient $client)
     {
+        dd($client);
         if(auth()->check()) {
             $client->logout();
         }
@@ -85,17 +86,17 @@ class LoginController extends Controller
     private function findUser($user)
     {
         $changeNik = false;
-        $authUser = User::where('nik', $user->nik)->first();
+        $authUser = User::where('logeditingpriviledge_nik', $user->nik)->first();
 
-        if (!$authUser) {
-            $authUser = User::where('nik', $user->nik_lama)->first();
-            $changeNik = true;
-        }
+        // if (!$authUser) {
+        //     $authUser = User::where('nik', $user->nik_lama)->first();
+        //     $changeNik = true;
+        // }
 
-        if($changeNik && $authUser) {
-            $authUser->nik = $user->nik;
-            $authUser->save();
-        }
+        // if($changeNik && $authUser) {
+        //     $authUser->nik = $user->nik;
+        //     $authUser->save();
+        // }
 
         if ($authUser) {
             return $authUser;

@@ -15,8 +15,10 @@ class User extends Authenticatable
      *
      * @var array
      */
+    protected $connection = 'sqlsrv';
+    protected $table = 'transaction_logeditingpriviledge'; 
     protected $fillable = [
-        'name', 'email', 'password',
+        'logeditingpriviledge_nik', 'logeditingpriviledge_name', 'logeditingpriviledge_level'
     ];
 
     /**

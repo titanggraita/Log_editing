@@ -14,18 +14,21 @@ use Illuminate\Support\Facades\Route;
 */
 
 //LARAVEL
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('reference');
+// });
 
 //REFERENCE
-Route::get('/reference', 'ReferenceController@reference');
+Route::get('/', 'ReferenceController@reference');
 Route::get('/reference/store_R', 'ReferenceController@store_R');
 Route::post('/reference/fetch', 'ReferenceController@fetch')->name('reference.fetch');
+Route::post('/reference/autofill', 'ReferenceController@autofill')->name('reference.autofill');
 
 //NON - REFERENCE
 Route::get('/non_reference', 'NonReferenceController@non_reference');
 Route::get('/non_reference/store_NR', 'NonReferenceController@store_NR');
+Route::post('/non_reference/fetch_NR', 'NonReferenceController@fetch_NR')->name('non_reference.fetch_NR');
+Route::post('/non_reference/autofill_NR', 'NonReferenceController@autofill_NR')->name('non_reference.autofill_NR');
 
 //LOGIN SSO
 Route::get('/loginSSO', 'LoginController@loginSSO');

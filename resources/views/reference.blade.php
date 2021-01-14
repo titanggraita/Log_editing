@@ -17,8 +17,8 @@
                                     <div class="col-md-10 col-form-label">
                                             <select name="bookingediting_id" id="bookingediting_id" class="form-control dynamic" data-dependent="bookingeditingdetail_line" required>
                                                 <option value="" selected="false">--Select Booking Editing ID--</option>
-                                                @foreach ($reference_B as $b)
-                                                <option value="{{$b->bookingediting_id}}">{{$b->bookingediting_id}}</option>
+                                                @foreach ($reference_R as $booking)
+                                                <option value="{{$booking->bookingediting_id}}">{{$booking->bookingediting_id}}</option>
                                                 @endforeach
                                             </select>
                                             <p style="color:grey;">*Ketik Booking Editing ID</p>
@@ -28,8 +28,9 @@
                                         Booking Editing Line
                                     </div>
                                     <div class="col-md-10 col-form-label">
-                                            <select name="bookingeditingdetail_line" id="bookingeditingdetail_line" class="form-control dynamic" required>
+                                            <select name="bookingeditingdetail_line" id="bookingeditingdetail_line" class="form-control dynamic" onchange="autofill()"  required>
                                                 <option value="" selected="false">--Select Booking Editing Line--</option>
+                                                
                                             </select>
                                             <p style="color:grey;">*Pilih Booking Editing Line</p>
                                     </div>
@@ -39,19 +40,19 @@
                                         Kode Eps
                                     </div>
                                     <div class="col-md-10 col-form-label">
-                                        <input type="text" class="form-control" id="kode_eps" name="kode_eps" value="" placeholder="Episode Code" readonly/>
+                                        <input type="text" class="form-control dynamic" id="kode_eps" name="kode_eps" value="" placeholder="Episode Code" readonly/>
                                     </div>
                                     <div class="col-md-2 col-form-label">
                                         Editing Date
                                     </div>
                                     <div class="col-md-10 col-form-label">
-                                        <input type="date" class="form-control" id="editing_date" name="editing_date" value="" placeholder="Editing Date" readonly/>
+                                        <input type="text" class="form-control dynamic" id="editing_date" name="editing_date" value="" placeholder="Editing Date" readonly/>
                                     </div>
                                     <div class="col-md-2 col-form-label">
                                         Editing Shift
                                     </div>
                                     <div class="col-md-10 col-form-label">
-                                        <input type="text" class="form-control" id="editing_shift" name="editing_shift" value="" placeholder="Editing Shift" readonly/>
+                                        <input type="text" class="form-control dynamic" id="editing_shift" name="editing_shift" value="" placeholder="Editing Shift" readonly/>
                                     </div><br><br><br>
                                     <div class="col-md-12">
                                         <button type="submit" id="btnSubmit" class="btn btn-blue btn-lg btn-block">GENERATE CODE</button>
@@ -63,7 +64,7 @@
                                             <center><H2 style="color:#1b215a;">
                                             <?php 
                                                 if (isset($_POST["btnSubmit"])){
-                                                    echo ($reference->logediting_code);
+                                                    echo ($reference_N->logediting_code);
                                                 }
                                             ?>
                                             </H2></center>
@@ -92,7 +93,7 @@
                                 <th>Login Detail Status</th>
                             </thead>
                             
-                            @foreach($reference_R as $r)
+                            @foreach($reference_N as $r)
                             <tbody class="table-body text-center">
                                     <td>{{ $r->logediting_code }}</td>
                                     <td>{{ $r->logediting_reference_id }}</td>
@@ -225,7 +226,7 @@
             </div>
         </div>
 </form>
-    <script type="text/javascript">
+    <script type="text/javascript">    
         $(document).ready(function(){
             $('.dynamic').on('change', function(){
                 if($(this).val() != ''){
@@ -233,6 +234,7 @@
                     var value = $(this).val();
                     var dependent = $(this).data('dependent');
                     var _token = $('input[name="_token"]').val();
+                    console.log(select, value, dependent);
                     $.ajax({
                         url:"{{ route('reference.fetch') }}",
                         method:"POST",
@@ -243,12 +245,31 @@
                     });
                 }
             });
-            $('#bookingediting_id').on('change', function(){
-                $('#bookingeditingdetail_line').val('');
-            });
         });
     </script>
     <script type="text/javascript">
+    function autofill(){
+        $('.dynamic').on('change', function(){
+                if($(this).val() != ''){
+                    var booking_line = $('#bookingeditingdetail_line').val();
+                    var booking_id = $('#bookingediting_id').val();
+                    var _token = $('input[name="_token"]').val();
+                    console.log(booking_id, booking_line);
+                    $.ajax({
+                        url:"{{ route('reference.autofill') }}",
+                        method:"POST",
+                        data:{_token:_token, booking_id:booking_id, booking_line:booking_line},
+                        success:function(result){
+                            result = JSON.parse(result);
+                            console.log(result);
+                            $("#kode_eps").val(result[0].eps_code);
+                            $("#editing_date").val(result[0].bookingeditingdetail_date);
+                            $("#editing_shift").val(result[0].bookingeditingdetail_shift);
+                        }
+                    });
+                }
+        });
+    }
     function popup(){
         // Get the modal
         var modal = document.getElementById("myModal");

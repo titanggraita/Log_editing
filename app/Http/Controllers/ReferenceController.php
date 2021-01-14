@@ -14,22 +14,36 @@ class ReferenceController extends Controller
 {
     public function reference()
     {
-        $reference_R = Transaction_logediting::all()->whereIn('logediting_isreferenced',1);
-        $reference_B = Transaction_bookingeditingdetail::select('bookingediting_id')->groupBy('bookingediting_id')->get();
-        return view('reference', compact('reference_R', 'reference_B'));
+        $reference_N = Transaction_logediting::all()->whereIn('logediting_isreferenced',1);
+        $reference_R = Transaction_bookingediting::get();
+        return view('reference', compact('reference_N', 'reference_R'));
     }
     public function fetch(Request $request)
     {
         $select = $request->get('select');
         $value = $request->get('value');
         $dependent = $request->get('dependent');
-        $data = Transaction_bookingeditingdetail::where($select, $value)->groupBy($dependent)->get();
-        $output = '<option value="">Select '.$dependent.'</option>';
+        $data = DB::table('transaction_bookingediting')
+                    ->join(('transaction_bookingeditingdetail'),
+                     ('transaction_bookingediting.'.$select), '=', ('transaction_bookingeditingdetail.'.$select))
+                    ->select('transaction_bookingeditingdetail.'.$dependent)
+                    ->where('transaction_bookingeditingdetail.'.$select, $value)
+                    ->get();
+        $output = '<option value="">--Select Booking Editing Line--</option>';
         foreach($data as $row){
             $output .= '<option value="'.$row->$dependent.'">'.$row->$dependent.'</option>';
         }
         echo $output;
-
+    }
+    public function autofill(Request $request)
+    {
+        $booking_id = $request->get('booking_id');
+        $booking_line = $request->get('booking_line');
+        $data = Transaction_bookingeditingdetail::select('eps_code', 'bookingeditingdetail_date', 'bookingeditingdetail_shift')
+                    ->where('transaction_bookingeditingdetail.bookingediting_id', $booking_id)
+                    ->where('transaction_bookingeditingdetail.bookingeditingdetail_line', $booking_line)
+                    ->get();
+        echo $data;
     }
     public function store_R(Request $request)
     {
