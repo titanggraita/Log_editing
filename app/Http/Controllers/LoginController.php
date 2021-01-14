@@ -61,6 +61,10 @@ class LoginController extends Controller
         if($userInstance) {
             auth()->login($userInstance);
             $client->setSid($user->token);
+
+            // dd($user->user['nik']);
+            //create session
+            // session()->put('', $user->user['nik']);
             return redirect()->intended();
         } else {
             session()->put('no_access', true);
@@ -99,6 +103,7 @@ class LoginController extends Controller
         // }
 
         if ($authUser) {
+            //session
             return $authUser;
         }
     }

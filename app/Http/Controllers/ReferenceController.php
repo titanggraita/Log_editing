@@ -63,6 +63,7 @@ class ReferenceController extends Controller
             'logediting_generatedtime' => date('H:i:s.').$time
             //sisanya null
         ]);
+        
         return redirect('/');
     }
 }

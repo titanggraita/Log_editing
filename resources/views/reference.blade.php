@@ -62,11 +62,15 @@
                                         <h4 style="color:#1b215a;">Your Code</h4>
                                         <div class="card shadow-sm mb-2" style="padding:60px;">
                                             <center><H2 style="color:#1b215a;">
+                                            @foreach($reference_N as $r)
                                             <?php 
-                                                if (isset($_POST["btnSubmit"])){
-                                                    echo ($reference_N->logediting_code);
+                                                if (($r->id < 0) && ($n->logediting_isreferenced == 1)){
+                                                    echo " ";
+                                                }else{
+                                                    echo $r->logediting_code;
                                                 }
                                             ?>
+                                            @endforeach
                                             </H2></center>
                                         </div>
                                         
