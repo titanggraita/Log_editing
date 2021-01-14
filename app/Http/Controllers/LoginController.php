@@ -70,7 +70,7 @@ class LoginController extends Controller
 
     public function logout(Request $request, SSOClient $client)
     {
-        dd($client);
+        // dd($client);
         if(auth()->check()) {
             $client->logout();
         }
