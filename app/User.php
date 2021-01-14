@@ -17,6 +17,8 @@ class User extends Authenticatable
      */
     protected $connection = 'sqlsrv';
     protected $table = 'transaction_logeditingpriviledge'; 
+    protected $primaryKey = 'logeditingpriviledge_nik';
+    protected $keyType = 'string';
     protected $fillable = [
         'logeditingpriviledge_nik', 'logeditingpriviledge_name', 'logeditingpriviledge_level'
     ];

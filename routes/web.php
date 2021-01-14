@@ -18,8 +18,11 @@ use Illuminate\Support\Facades\Route;
 //     return view('reference');
 // });
 
+Route::group(['middleware' => ['auth']], function() {
+    Route::get('/', 'ReferenceController@reference');
+});
 //REFERENCE
-Route::get('/', 'ReferenceController@reference');
+
 Route::get('/reference/store_R', 'ReferenceController@store_R');
 Route::post('/reference/fetch', 'ReferenceController@fetch')->name('reference.fetch');
 Route::post('/reference/autofill', 'ReferenceController@autofill')->name('reference.autofill');
@@ -31,7 +34,7 @@ Route::post('/non_reference/fetch_NR', 'NonReferenceController@fetch_NR')->name(
 Route::post('/non_reference/autofill_NR', 'NonReferenceController@autofill_NR')->name('non_reference.autofill_NR');
 
 //LOGIN SSO
-Route::get('/loginSSO', 'LoginController@loginSSO');
+Route::get('/loginSSO', 'LoginController@loginSSO')->name('login');
 Route::get('/callback', 'LoginController@callback');
 Route::get('/logout', 'LoginController@logout');
 Route::post('/logout', 'LoginController@logout')->name('logout');
