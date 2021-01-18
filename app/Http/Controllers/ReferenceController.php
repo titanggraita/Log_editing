@@ -17,7 +17,8 @@ class ReferenceController extends Controller
     {
         $reference_N = Transaction_logediting::all()->whereIn('logediting_isreferenced',1);
         $reference_R = Transaction_bookingediting::get();
-        return view('reference', compact('reference_N', 'reference_R'));
+        $data_R = Transaction_logediting::latest('id')->first();
+        return view('reference', compact('reference_N', 'reference_R','data_R'));
     }
     public function fetch(Request $request)
     {
@@ -27,12 +28,12 @@ class ReferenceController extends Controller
         $data = DB::table('transaction_bookingediting')
                     ->join(('transaction_bookingeditingdetail'),
                      ('transaction_bookingediting.'.$select), '=', ('transaction_bookingeditingdetail.'.$select))
-                    ->select('transaction_bookingeditingdetail.'.$dependent)
+                    ->select('transaction_bookingeditingdetail.'.$dependent.'', 'transaction_bookingeditingdetail.bookingeditingdetail_date', 'transaction_bookingeditingdetail.bookingeditingdetail_shift')
                     ->where('transaction_bookingeditingdetail.'.$select, $value)
                     ->get();
         $output = '<option value="">--Select Booking Editing Line--</option>';
         foreach($data as $row){
-            $output .= '<option value="'.$row->$dependent.'">'.$row->$dependent.'</option>';
+            $output .= '<option value="'.$row->$dependent.'">'.$row->$dependent." "."( "." Date: ".date('d M Y', strtotime($row->bookingeditingdetail_date))." , "." Shift: ".$row->bookingeditingdetail_shift." )".'</option>';
         }
         echo $output;
     }
@@ -58,7 +59,7 @@ class ReferenceController extends Controller
             'logediting_useddate' => $request->editing_date ,
             'logediting_usedshift' => $request->editing_shift,
             'logediting_isreferenced' => 1,
-            'logediting_generatedby' => 'SYSTEM REFERENCE',
+            'logediting_generatedby' => $request->session()->get('nik'),
             'logediting_generateddate' => date('Y-m-d H:i:s.').$time,
             'logediting_generatedtime' => date('H:i:s.').$time
             //sisanya null

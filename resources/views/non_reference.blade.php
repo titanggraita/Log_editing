@@ -66,17 +66,13 @@
                                     <div class="col-md-12 col-form-label">
                                         <h4 style="color:#1b215a;">Your Code</h4>
                                         <div class="card shadow-sm mb-2" style="padding:60px;">
-                                            <center><H2 style="color:#1b215a;">
-                                            @foreach($non_reference_N as $n)
+                                            <center><H1 style="color:#1b215a;">
                                             <?php 
-                                                if (($n->id < 0) && ($n->logediting_isreferenced == 0)){
-                                                    echo " ";
-                                                }else{
-                                                    echo $n->logediting_code;
-                                                }
+                                            if ($data_N->logediting_isreferenced != 1){
+                                                echo $data_N->logediting_code;
+                                            }
                                             ?>
-                                            @endforeach
-                                            </H2></center>
+                                            </H1></center>
                                         </div>
                                        
                                     </div>
@@ -112,122 +108,130 @@
                                     <td>{{ $n->logediting_generatedby }}</td>
                                     <td>{{ $n->logediting_generateddate }}</td>
                                     <td>
-                                        <button type="button" id="myBtn" class="btn btn-blue btn-sm" onclick="popup_N()">View Detail
+                                    <button type="button" class="btn btn-blue btn-sm" data-toggle="modal" data-target="#modalDetail-{{$n->id}}">View Detail
                                         </button>
-                                        <!-- The Modal -->
-                                        <div id="myModal" class="modal">
 
-                                        <!-- Modal content -->
-                                            <div class="modal-content">
-                                                <h3 class="modal-header" style="color:#1b215a;">Detail Login Status <span class="close">&times;</span></h3>
-                                                <div class="row m-1">
-                                                    <div class="col-sm-4 col-form-label">
-                                                        <p style="font-size:17px;">Code</p>
-                                                    </div>
-                                                    <div class="col-sm-8 col-form-label">
-                                                        <p style="font-size:17px;">{{ $n->logediting_code }}</p>
-                                                    </div>
-                                                    <div class="col-sm-4 col-form-label">
-                                                        <p style="font-size:17px;">Status Login</p>
-                                                    </div>
-                                                    <div class="col-sm-8 col-form-label">
-                                                        <p style="font-size:17px;">
+                                        <div class="modal fade" id="modalDetail-{{$n->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h3 class="modal-title" id="exampleModalLabel" style="color:#1b215a;">Detail Login Status</h3>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="row m-1">
+                                                        <div class="col-sm-4 col-form-label">
+                                                            <p style="font-size:17px;">Code</p>
+                                                        </div>
+                                                        <div class="col-sm-8 col-form-label">
+                                                            <p style="font-size:17px;">{{ $n->logediting_code }}</p>
+                                                        </div>
+                                                        <div class="col-sm-4 col-form-label">
+                                                            <p style="font-size:17px;">Status Login</p>
+                                                        </div>
+                                                        <div class="col-sm-8 col-form-label">
+                                                            <p style="font-size:17px;">
+                                                                <?php 
+                                                                    if ($n->logediting_logindate != NULL){
+                                                                        echo "Sudah Login";
+                                                                    }else{
+                                                                        echo "Belum Login";
+                                                                    }
+                                                                ?>
+                                                            
+                                                            </p>
+                                                        </div>
+                                                        <div class="col-sm-4 col-form-label">
+                                                            <p style="font-size:17px;">Login By</p>
+                                                        </div>
+                                                        <div class="col-sm-8 col-form-label">
+                                                            <p style="font-size:17px;">
                                                             <?php 
-                                                                if ($n->logediting_logindate != NULL){
-                                                                    echo "Sudah Login";
-                                                                }else{
-                                                                    echo "Belum Login";
-                                                                }
+                                                            if (($n->logediting_loginnik != NULL) && ($n->logediting_loginname != NULL)){
+                                                                echo $n->logediting_loginnik."/".$n->logediting_loginname;
+                                                            }else{
+                                                                echo "- -";
+                                                            }
                                                             ?>
-                                                        
-                                                        </p>
-                                                    </div>
-                                                    <div class="col-sm-4 col-form-label">
-                                                        <p style="font-size:17px;">Login By</p>
-                                                    </div>
-                                                    <div class="col-sm-8 col-form-label">
-                                                        <p style="font-size:17px;">
-                                                        <?php 
-                                                        if (($n->logediting_loginnik != NULL) && ($n->logediting_loginname != NULL)){
-                                                            echo $n->logediting_loginnik."/".$n->logediting_loginname;
-                                                        }else{
-                                                            echo "- -";
-                                                        }
-                                                        ?>
-                                                        </p>
-                                                    </div>
-                                                    <div class="col-sm-4 col-form-label">
-                                                        <p style="font-size:17px;">Login Time</p>
-                                                    </div>
-                                                    <div class="col-sm-8 col-form-label">
-                                                        <p style="font-size:17px;">
-                                                        <?php 
-                                                        if ($n->logediting_logindate != NULL){
-                                                            echo date('d M Y', strtotime($n->logediting_logindate));
-                                                        }else{
-                                                            echo "-";
-                                                        }
-                                                        ?> 
-                                                        <?php 
-                                                        if ($n->logediting_logintime != NULL){
-                                                            echo $n->logediting_logintime;
-                                                        }else{
-                                                            echo "-";
-                                                        }
-                                                        ?>
-                                                        </p>
-                                                    </div>
-                                                    <div class="col-sm-4 col-form-label">
-                                                        <p style="font-size:17px;">Status Logout</p>
-                                                    </div>
-                                                    <div class="col-sm-8 col-form-label">
-                                                        <p style="font-size:17px;">
+                                                            </p>
+                                                        </div>
+                                                        <div class="col-sm-4 col-form-label">
+                                                            <p style="font-size:17px;">Login Time</p>
+                                                        </div>
+                                                        <div class="col-sm-8 col-form-label">
+                                                            <p style="font-size:17px;">
                                                             <?php 
-                                                                if ($n->logediting_logoutdate != NULL){
-                                                                    echo "Sudah Logout";
-                                                                }else{
-                                                                    echo "Belum Logout";
-                                                                }
+                                                            if ($n->logediting_logindate != NULL){
+                                                                echo date('d M Y', strtotime($n->logediting_logindate));
+                                                            }else{
+                                                                echo "-";
+                                                            }
+                                                            ?> 
+                                                            <?php 
+                                                            if ($n->logediting_logintime != NULL){
+                                                                echo $n->logediting_logintime;
+                                                            }else{
+                                                                echo "-";
+                                                            }
                                                             ?>
-                                                        </p>
-                                                    </div>
-                                                    <div class="col-sm-4 col-form-label">
-                                                        <p style="font-size:17px;">Logout Time</p>
-                                                    </div>
-                                                    <div class="col-sm-8 col-form-label">
-                                                        <p style="font-size:17px;">
-                                                        <?php 
-                                                        if ($n->logediting_logoutdate != NULL){
-                                                            echo date('d M Y', strtotime($n->logediting_logoutdate));
-                                                        }else{
-                                                            echo "-";
-                                                        }
-                                                        ?> 
-                                                        <?php 
-                                                        if ($n->logediting_logouttime != NULL){
-                                                            echo $n->logediting_logouttime;
-                                                        }else{
-                                                            echo "-";
-                                                        }
-                                                        ?>
-                                                        </p>
-                                                    </div>
-                                                    <div class="col-sm-4 col-form-label">
-                                                        <p style="font-size:17px;">Remark Logout</p>
-                                                    </div>
-                                                    <div class="col-sm-8 col-form-label">
-                                                        <p style="font-size:17px;">
-                                                        <?php 
-                                                        if ($n->logediting_remark != NULL){
-                                                            echo $n->logediting_remark;
-                                                        }else{
-                                                            echo "- -";
-                                                        }
-                                                        ?>
-                                                        </p>
+                                                            </p>
+                                                        </div>
+                                                        <div class="col-sm-4 col-form-label">
+                                                            <p style="font-size:17px;">Status Logout</p>
+                                                        </div>
+                                                        <div class="col-sm-8 col-form-label">
+                                                            <p style="font-size:17px;">
+                                                                <?php 
+                                                                    if ($n->logediting_logoutdate != NULL){
+                                                                        echo "Sudah Logout";
+                                                                    }else{
+                                                                        echo "Belum Logout";
+                                                                    }
+                                                                ?>
+                                                            </p>
+                                                        </div>
+                                                        <div class="col-sm-4 col-form-label">
+                                                            <p style="font-size:17px;">Logout Time</p>
+                                                        </div>
+                                                        <div class="col-sm-8 col-form-label">
+                                                            <p style="font-size:17px;">
+                                                            <?php 
+                                                            if ($n->logediting_logoutdate != NULL){
+                                                                echo date('d M Y', strtotime($n->logediting_logoutdate));
+                                                            }else{
+                                                                echo "-";
+                                                            }
+                                                            ?> 
+                                                            <?php 
+                                                            if ($n->logediting_logouttime != NULL){
+                                                                echo $n->logediting_logouttime;
+                                                            }else{
+                                                                echo "-";
+                                                            }
+                                                            ?></p>
+                                                        </div>
+                                                        <div class="col-sm-4 col-form-label">
+                                                            <p style="font-size:17px;">Remark Logout</p>
+                                                        </div>
+                                                        <div class="col-sm-8 col-form-label">
+                                                            <p style="font-size:17px;">
+                                                            <?php 
+                                                            if ($n->logediting_remark != NULL){
+                                                                echo $n->logediting_remark;
+                                                            }else{
+                                                                echo "- -";
+                                                            }
+                                                            ?>
+                                                            </p>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-blue btn-md" data-dismiss="modal">OK</button>
+                                                </div>
+                                            </div>    
                                         </div>
                                     </td>
                             </tbody>
@@ -238,6 +242,14 @@
             </div>
         </div>
 </form>
+</body>
+    <script>
+    window.onload=function(){
+        setTimeout( function(){
+            document.querySelectorAll('h1')[0].innerHTML='';
+        },3000);
+    }
+    </script>
     <script type="text/javascript">
         $(document).ready(function(){
             $('.dynamic').on('change', function(){
@@ -281,34 +293,4 @@
                 }
             });
     }
-    function popup_N(){
-        // Get the modal
-        var modal = document.getElementById("myModal");
-
-        // Get the button that opens the modal
-        var btn = document.getElementById("myBtn");
-
-        // Get the <span> element that closes the modal
-        var span = document.getElementsByClassName("close")[0];
-
-        // When the user clicks the button, open the modal 
-        btn.onclick = function() {
-            modal.style.display = "block";
-        }
-
-        // When the user clicks on <span> (x), close the modal
-        span.onclick = function() {
-            modal.style.display = "none";
-        }
-
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-    }
     </script>
-    
-    
-</body>

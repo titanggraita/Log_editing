@@ -64,7 +64,7 @@ class LoginController extends Controller
 
             // dd($user->user['nik']);
             //create session
-            // session()->put('', $user->user['nik']);
+            session()->put('nik', $user->user['nik']);
             return redirect()->intended();
         } else {
             session()->put('no_access', true);

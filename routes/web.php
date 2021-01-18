@@ -26,6 +26,7 @@ Route::group(['middleware' => ['auth']], function() {
 Route::get('/reference/store_R', 'ReferenceController@store_R');
 Route::post('/reference/fetch', 'ReferenceController@fetch')->name('reference.fetch');
 Route::post('/reference/autofill', 'ReferenceController@autofill')->name('reference.autofill');
+Route::post('/reference/generate', 'ReferenceController@generate')->name('reference.generate');
 
 //NON - REFERENCE
 Route::get('/non_reference', 'NonReferenceController@non_reference');

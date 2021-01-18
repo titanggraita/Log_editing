@@ -11,71 +11,69 @@
                             <div class="card-body">   
                                 <h2 class="card-title" style="color:#1b215a;">Reference</h2>
                                 <div class = "row m-1">
-                                <div class="col-md-2 col-form-label">
-                                        Booking Editing ID
-                                    </div>
-                                    <div class="col-md-10 col-form-label">
-                                            <select name="bookingediting_id" id="bookingediting_id" class="form-control dynamic" data-dependent="bookingeditingdetail_line" required>
-                                                <option value="" selected="false">--Select Booking Editing ID--</option>
-                                                @foreach ($reference_R as $booking)
-                                                <option value="{{$booking->bookingediting_id}}">{{$booking->bookingediting_id}}</option>
-                                                @endforeach
-                                            </select>
-                                            <p style="color:grey;">*Ketik Booking Editing ID</p>
-                                    </div>
-                                    
-                                    <div class="col-md-2 col-form-label">
-                                        Booking Editing Line
-                                    </div>
-                                    <div class="col-md-10 col-form-label">
-                                            <select name="bookingeditingdetail_line" id="bookingeditingdetail_line" class="form-control dynamic" onchange="autofill()"  required>
-                                                <option value="" selected="false">--Select Booking Editing Line--</option>
-                                                
-                                            </select>
-                                            <p style="color:grey;">*Pilih Booking Editing Line</p>
-                                    </div>
-                                    {{ csrf_field() }}
-                                    
-                                    <div class="col-md-2 col-form-label">
-                                        Kode Eps
-                                    </div>
-                                    <div class="col-md-10 col-form-label">
-                                        <input type="text" class="form-control dynamic" id="kode_eps" name="kode_eps" value="" placeholder="Episode Code" readonly/>
-                                    </div>
-                                    <div class="col-md-2 col-form-label">
-                                        Editing Date
-                                    </div>
-                                    <div class="col-md-10 col-form-label">
-                                        <input type="text" class="form-control dynamic" id="editing_date" name="editing_date" value="" placeholder="Editing Date" readonly/>
-                                    </div>
-                                    <div class="col-md-2 col-form-label">
-                                        Editing Shift
-                                    </div>
-                                    <div class="col-md-10 col-form-label">
-                                        <input type="text" class="form-control dynamic" id="editing_shift" name="editing_shift" value="" placeholder="Editing Shift" readonly/>
-                                    </div><br><br><br>
-                                    <div class="col-md-12">
-                                        <button type="submit" id="btnSubmit" class="btn btn-blue btn-lg btn-block">GENERATE CODE</button>
-                                    </div>
-                                    <br><br><br>
-                                    <div class="col-md-12 col-form-label">
-                                        <h4 style="color:#1b215a;">Your Code</h4>
-                                        <div class="card shadow-sm mb-2" style="padding:60px;">
-                                            <center><H2 style="color:#1b215a;">
-                                            @foreach($reference_N as $r)
-                                            <?php 
-                                                if (($r->id < 0) && ($n->logediting_isreferenced == 1)){
-                                                    echo " ";
-                                                }else{
-                                                    echo $r->logediting_code;
-                                                }
-                                            ?>
-                                            @endforeach
-                                            </H2></center>
+                                        <div class="col-md-2 col-form-label">
+                                            Booking Editing ID
+                                        </div>
+                                        <div class="col-md-10 col-form-label">
+                                                <select name="bookingediting_id" id="bookingediting_id" class="form-control dynamic" data-dependent="bookingeditingdetail_line" required>
+                                                    <option value="" selected="false">--Select Booking Editing ID--</option>
+                                                    @foreach ($reference_R as $booking)
+                                                    <option value="{{$booking->bookingediting_id}}">{{$booking->bookingediting_id}}</option>
+                                                    @endforeach
+                                                </select>
+                                                <p style="color:grey;">*Ketik Booking Editing ID</p>
                                         </div>
                                         
-                                    </div>
-                                    
+                                        <div class="col-md-2 col-form-label">
+                                            Booking Editing Line
+                                        </div>
+                                        <div class="col-md-10 col-form-label">
+                                                <select name="bookingeditingdetail_line" id="bookingeditingdetail_line" class="form-control dynamic" onchange="autofill()"  required>
+                                                    <option value="" selected="false">--Select Booking Editing Line--</option>
+                                                    
+                                                </select>
+                                                <p style="color:grey;">*Pilih Booking Editing Line</p>
+                                        </div>
+                                        {{ csrf_field() }}
+                                        
+                                        <div class="col-md-2 col-form-label">
+                                            Kode Eps
+                                        </div>
+                                        <div class="col-md-10 col-form-label">
+                                            <input type="text" class="form-control dynamic" id="kode_eps" name="kode_eps" value="" placeholder="Episode Code" readonly/>
+                                        </div>
+                                        <div class="col-md-2 col-form-label">
+                                            Editing Date
+                                        </div>
+                                        <div class="col-md-10 col-form-label">
+                                            <input type="text" class="form-control dynamic" id="editing_date" name="editing_date" value="" placeholder="Editing Date" readonly/>
+                                        </div>
+                                        <div class="col-md-2 col-form-label">
+                                            Editing Shift
+                                        </div>
+                                        <div class="col-md-10 col-form-label">
+                                            <input type="text" class="form-control dynamic" id="editing_shift" name="editing_shift" value="" placeholder="Editing Shift" readonly/>
+                                        </div><br><br><br>
+                                        <div class="col-md-12">
+                                            <button type="submit" class="btn btn-blue btn-lg btn-block">GENERATE CODE</button>
+                                        </div>
+                                        <br><br><br>
+                                        <div class="col-md-12 col-form-label">
+                                            <h4 style="color:#1b215a;">Your Code</h4>
+                                            <div class="card shadow-sm mb-2" style="padding:60px;">
+                                            
+                                                <center>
+                                                <H1 style="color:#1b215a;">
+                                                <?php 
+                                                if ($data_R->logediting_isreferenced != 0){
+                                                    echo $data_R->logediting_code;
+                                                }
+                                                ?>
+                                                </H1>
+                                                </center>
+                                            
+                                            </div>
+                                        </div>
                                 </div>
                             </div>
                         </div>
@@ -96,7 +94,6 @@
                                 <th>Generated Datetime</th>
                                 <th>Login Detail Status</th>
                             </thead>
-                            
                             @foreach($reference_N as $r)
                             <tbody class="table-body text-center">
                                     <td>{{ $r->logediting_code }}</td>
@@ -108,118 +105,129 @@
                                     <td>{{ $r->logediting_generatedby }}</td>
                                     <td>{{ $r->logediting_generateddate }}</td>
                                     <td>
-                                        <button type="button" id="myBtn" class="btn btn-blue btn-sm" onclick="popup()">View Detail
+                                        <button type="button" class="btn btn-blue btn-sm" data-toggle="modal" data-target="#modalDetail-{{$r->id}}">View Detail
                                         </button>
-                                        <div id="myModal" class="modal">
-                                            <div class="modal-content">
-                                                <h3 class="modal-header" style="color:#1b215a;">Detail Login Status <span class="close">&times;</span></h3>
-                                                <div class="row m-1">
-                                                    <div class="col-sm-4 col-form-label">
-                                                        <p style="font-size:17px;">Code</p>
+                                        <div class="modal fade" id="modalDetail-{{$r->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h3 class="modal-title" id="exampleModalLabel" style="color:#1b215a;">Detail Login Status</h3>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                        </button>
                                                     </div>
-                                                    <div class="col-sm-8 col-form-label">
-                                                        <p style="font-size:17px;">{{ $r->logediting_code }}</p>
-                                                    </div>
-                                                    <div class="col-sm-4 col-form-label">
-                                                        <p style="font-size:17px;">Status Login</p>
-                                                    </div>
-                                                    <div class="col-sm-8 col-form-label">
-                                                        <p style="font-size:17px;">
-                                                            <?php 
+                                                    <div class="modal-body">
+                                                        <div class="row m-1">
+                                                            <div class="col-sm-4 col-form-label">
+                                                                <p style="font-size:17px;">Code</p>
+                                                            </div>
+                                                            <div class="col-sm-8 col-form-label">
+                                                                <p style="font-size:17px;">{{ $r->logediting_code }}</p>
+                                                            </div>
+                                                            <div class="col-sm-4 col-form-label">
+                                                                <p style="font-size:17px;">Status Login</p>
+                                                            </div>
+                                                            <div class="col-sm-8 col-form-label">
+                                                                <p style="font-size:17px;">
+                                                                    <?php 
+                                                                        if ($r->logediting_logindate != NULL){
+                                                                            echo "Sudah Login";
+                                                                        }else{
+                                                                            echo "Belum Login";
+                                                                        }
+                                                                    ?>
+                                                                
+                                                                </p>
+                                                            </div>
+                                                            <div class="col-sm-4 col-form-label">
+                                                                <p style="font-size:17px;">Login By</p>
+                                                            </div>
+                                                            <div class="col-sm-8 col-form-label">
+                                                                <p style="font-size:17px;">
+                                                                <?php 
+                                                                if (($r->logediting_loginnik != NULL) && ($r->logediting_loginname != NULL)){
+                                                                    echo $r->logediting_loginnik."/".$r->logediting_loginname;
+                                                                }else{
+                                                                    echo "- -";
+                                                                }
+                                                                ?>
+                                                                </p>
+                                                            </div>
+                                                            <div class="col-sm-4 col-form-label">
+                                                                <p style="font-size:17px;">Login Time</p>
+                                                            </div>
+                                                            <div class="col-sm-8 col-form-label">
+                                                                <p style="font-size:17px;">
+                                                                <?php 
                                                                 if ($r->logediting_logindate != NULL){
-                                                                    echo "Sudah Login";
+                                                                    echo date('d M Y', strtotime($r->logediting_logindate));
                                                                 }else{
-                                                                    echo "Belum Login";
+                                                                    echo "-";
                                                                 }
-                                                            ?>
-                                                        
-                                                        </p>
-                                                    </div>
-                                                    <div class="col-sm-4 col-form-label">
-                                                        <p style="font-size:17px;">Login By</p>
-                                                    </div>
-                                                    <div class="col-sm-8 col-form-label">
-                                                        <p style="font-size:17px;">
-                                                        <?php 
-                                                        if (($r->logediting_loginnik != NULL) && ($r->logediting_loginname != NULL)){
-                                                            echo $r->logediting_loginnik."/".$r->logediting_loginname;
-                                                        }else{
-                                                            echo "- -";
-                                                        }
-                                                        ?>
-                                                        </p>
-                                                    </div>
-                                                    <div class="col-sm-4 col-form-label">
-                                                        <p style="font-size:17px;">Login Time</p>
-                                                    </div>
-                                                    <div class="col-sm-8 col-form-label">
-                                                        <p style="font-size:17px;">
-                                                        <?php 
-                                                        if ($r->logediting_logindate != NULL){
-                                                            echo date('d M Y', strtotime($r->logediting_logindate));
-                                                        }else{
-                                                            echo "-";
-                                                        }
-                                                        ?> 
-                                                        <?php 
-                                                        if ($r->logediting_logintime != NULL){
-                                                            echo $r->logediting_logintime;
-                                                        }else{
-                                                            echo "-";
-                                                        }
-                                                        ?>
-                                                        </p>
-                                                    </div>
-                                                    <div class="col-sm-4 col-form-label">
-                                                        <p style="font-size:17px;">Status Logout</p>
-                                                    </div>
-                                                    <div class="col-sm-8 col-form-label">
-                                                        <p style="font-size:17px;">
-                                                            <?php 
+                                                                ?> 
+                                                                <?php 
+                                                                if ($r->logediting_logintime != NULL){
+                                                                    echo $r->logediting_logintime;
+                                                                }else{
+                                                                    echo "-";
+                                                                }
+                                                                ?>
+                                                                </p>
+                                                            </div>
+                                                            <div class="col-sm-4 col-form-label">
+                                                                <p style="font-size:17px;">Status Logout</p>
+                                                            </div>
+                                                            <div class="col-sm-8 col-form-label">
+                                                                <p style="font-size:17px;">
+                                                                    <?php 
+                                                                        if ($r->logediting_logoutdate != NULL){
+                                                                            echo "Sudah Logout";
+                                                                        }else{
+                                                                            echo "Belum Logout";
+                                                                        }
+                                                                    ?>
+                                                                </p>
+                                                            </div>
+                                                            <div class="col-sm-4 col-form-label">
+                                                                <p style="font-size:17px;">Logout Time</p>
+                                                            </div>
+                                                            <div class="col-sm-8 col-form-label">
+                                                                <p style="font-size:17px;">
+                                                                <?php 
                                                                 if ($r->logediting_logoutdate != NULL){
-                                                                    echo "Sudah Logout";
+                                                                    echo date('d M Y', strtotime($r->logediting_logoutdate));
                                                                 }else{
-                                                                    echo "Belum Logout";
+                                                                    echo "-";
                                                                 }
-                                                            ?>
-                                                        </p>
-                                                    </div>
-                                                    <div class="col-sm-4 col-form-label">
-                                                        <p style="font-size:17px;">Logout Time</p>
-                                                    </div>
-                                                    <div class="col-sm-8 col-form-label">
-                                                        <p style="font-size:17px;">
-                                                        <?php 
-                                                        if ($r->logediting_logoutdate != NULL){
-                                                            echo date('d M Y', strtotime($r->logediting_logoutdate));
-                                                        }else{
-                                                            echo "-";
-                                                        }
-                                                        ?> 
-                                                        <?php 
-                                                        if ($r->logediting_logouttime != NULL){
-                                                            echo $r->logediting_logouttime;
-                                                        }else{
-                                                            echo "-";
-                                                        }
-                                                        ?></p>
-                                                    </div>
-                                                    <div class="col-sm-4 col-form-label">
-                                                        <p style="font-size:17px;">Remark Logout</p>
-                                                    </div>
-                                                    <div class="col-sm-8 col-form-label">
-                                                        <p style="font-size:17px;">
-                                                        <?php 
-                                                        if ($r->logediting_remark != NULL){
-                                                            echo $r->logediting_remark;
-                                                        }else{
-                                                            echo "- -";
-                                                        }
-                                                        ?>
-                                                        </p>
-                                                    </div>
+                                                                ?> 
+                                                                <?php 
+                                                                if ($r->logediting_logouttime != NULL){
+                                                                    echo $r->logediting_logouttime;
+                                                                }else{
+                                                                    echo "-";
+                                                                }
+                                                                ?></p>
+                                                            </div>
+                                                            <div class="col-sm-4 col-form-label">
+                                                                <p style="font-size:17px;">Remark Logout</p>
+                                                            </div>
+                                                            <div class="col-sm-8 col-form-label">
+                                                                <p style="font-size:17px;">
+                                                                <?php 
+                                                                if ($r->logediting_remark != NULL){
+                                                                    echo $r->logediting_remark;
+                                                                }else{
+                                                                    echo "- -";
+                                                                }
+                                                                ?>
+                                                                </p>
+                                                            </div>
+                                                        </div>
                                                 </div>
-                                            </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-blue btn-md" data-dismiss="modal">OK</button>
+                                                </div>
+                                            </div>    
                                         </div>
                                     </td>
                             </tbody>
@@ -230,6 +238,14 @@
             </div>
         </div>
 </form>
+</body>
+    <script>
+    window.onload=function(){
+        setTimeout( function(){
+            document.querySelectorAll('h1')[0].innerHTML='';
+        },3000);
+    }
+    </script>
     <script type="text/javascript">    
         $(document).ready(function(){
             $('.dynamic').on('change', function(){
@@ -274,34 +290,22 @@
                 }
         });
     }
-    function popup(){
-        // Get the modal
-        var modal = document.getElementById("myModal");
-
-        // Get the button that opens the modal
-        var btn = document.getElementById("myBtn");
-
-        // Get the <span> element that closes the modal
-        var span = document.getElementsByClassName("close")[0];
-
-        // When the user clicks the button, open the modal 
-        btn.onclick = function() {
-            modal.style.display = "block";
-        }
-
-        // When the user clicks on <span> (x), close the modal
-        span.onclick = function() {
-            modal.style.display = "none";
-        }
-
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-    }
-    </script> 
-
-
-</body>
+    </script>
+    <script type="text/javascript">    
+        $(document).ready(function(){
+            $('#generate').on('change', function(){
+                if($(this).val() != ''){
+                    var _token = $('input[name="_token"]').val();
+                    $.ajax({
+                        url:"{{ route('reference.generate') }}",
+                        method:"POST",
+                        data:{_token:_token},
+                        success:function(result){
+                            $("#generate").val(result[0].logediting_code);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+    
